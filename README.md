@@ -7,8 +7,8 @@ You can open the `index.html` with any browser. This is your testing environment
 
 We highly reccommend reading the documentation:
 
-#1: [The Basics.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial:-The-basics. "Part 1")
+#1: [Getting Started.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial-(part-1):-Getting-Started "Part 1")
 
-#2: [Getting Started.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial:-Getting-Started "Part 2")
+#2: [The Basics.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial-(part-2):-The-basics. "Part 2")
 
-#3: [Creating your first bot.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial:-Simple-Bot-%231 "Part 3")
+#3: [Creating your first bot.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial-(part-3):-Simple-Bot-%231 "Part 3")
