@@ -15,10 +15,54 @@ var activeBots = [];
 var user;
 
 var messageStatus = {
-    get error() { return "ERROR"; },
+  get error() { return "ERROR"; },
 	get warning() { return "WARNING"; },
 	get message() { return "MESSAGE"; }
 };
+
+function Bot(bot_name, header_character) {
+  this.name = bot_name;
+  this.headerChar = header_character;
+  this.executeCommand = function (data) {
+    return null;
+  }
+  respond = function (message, data) {
+    log(messageStatus.message,'Response from "'+bot_name+'" received.');
+    var n = document.createElement("DIV");
+    n.innerHTML = detectURL("[" + data.timestamp + "] [" + bot_name + "]: " + message);
+    document.getElementById("output").appendChild(n);
+  }
+  this.active = true;
+  this.deactivate = function() {
+    if (this.active) {
+      this.active = false;
+      log(messageStatus.message, 'Bot "'+bot_name+'" has been deactivated.');
+    }
+    else
+    {
+      log(messageStatus.warning, 'Bot "'+bot_name+'" is already deactivated!');
+    }
+  }
+  this.activate = function() {
+    if (!this.active) {
+      this.active = true;
+      log(messageStatus.message, 'Bot "'+bot_name+'" has been activated.');
+    }
+    else
+    {
+      log(messageStatus.warning, 'Bot "'+bot_name+'" is already active!');
+    }
+  }
+  this.register = function() {
+    if (findBot(bot_name, bots) == -1) {
+      bots.push(this);
+      activeBots.push(this);
+      log(messageStatus.message, 'Bot "' + bot_name + '" initialized.');
+    } else {
+      log(messageStatus.error,'Two bots cannot have the same name! Duplicate bot name: "'+bot_name+'".');
+    }
+  }
+}
 
 function User() {
 	var username;
@@ -46,7 +90,7 @@ function findBot(bot_name,bot_array) {
 	var i = -1;
 	bot_array.forEach(function(bot) {
 		i++;
-		if (bot[0] == bot_name) {
+		if (bot.name == bot_name) {
 			index = i;
 		}
 	});
@@ -57,66 +101,25 @@ function sendMessage(data) {
   var header = data.text.substring(0,1);
   var f = {
     poster: data.un,
-    message: data.text.substring(1, data.text.length),
+    message: data.text.substring(1, data.text.length).toLowerCase(),
     timestamp: formatTime(data.ts),
     rawTimestamp: data.ts
   }
-  activeBots.forEach(function (bot) {
-    if (header == bot[1]) {
-    	if (typeof window[bot[2]] == 'function') {
-    		log(messageStatus.message,'Callback for bot "'+bot[0]+'" triggered with message "'+f.message+'".');
-      	window[bot[2]](f);
+  bots.forEach(function (bot) {
+    console.log(bot);
+    if (bot.active) {
+    if (header == bot.headerChar) {
+    	if (typeof bot.executeCommand == 'function') {
+    		log(messageStatus.message,'Callback for bot "'+bot.name+'" triggered with message "'+f.message+'".');
+      	bot.executeCommand(f);
     	}
     	else
     	{
-    		log(messageStatus.error,'Callback for bot "'+bot[0]+'" is not a function!');
+    		log(messageStatus.error,'Callback for bot "'+bot.name+'" is not a function!');
     	}
     }
+  }
   });
-}
-
-function registerBot(username, botHeader, callback) {
-	if (findBot(username, bots) == -1) {
- 		bots.push([username, botHeader, callback]);
-  	activeBots.push([username, botHeader, callback]);
-  	log(messageStatus.message, 'Bot "' + username + '" initialized.');
- 	} else {
- 		log(messageStatus.error,'Two bots cannot have the same name! Duplicate bot name: "'+username+'".');
- 	}
-}
-
-function activateBot(bot_name) {
-  if (findBot(bot_name, activeBots) == -1) {
-    log(messageStatus.message, 'Bot "'+bot_name+'" has been activated.');
-	  activeBots.push(bots[findBot(bot_name, bots)]);
-  }
-  else
-  {
-    if (findBot(bot_name, bots) != -1) {
-      log(messageStatus.warning, 'Bot "'+bot_name+'" is already active!');
-    }
-    else
-    {
-      log(messageStatus.error, 'Bot "'+bot_name+'" does not exist!');
-    }
-  }
-}
-
-function deactivateBot(bot_name) {
-  if (findBot(bot_name, activeBots) != -1) {
-    log(messageStatus.message, 'Bot "'+bot_name+'" has been deactivated.');
-    activeBots.splice(findBot(bot_name, activeBots),1);
-  }
-  else
-  {
-    if (findBot(bot_name, bots) != -1) {
-      log(messageStatus.warning, 'Bot "'+bot_name+'" is already deactivates!');
-    }
-    else
-    {
-      log(messageStatus.error, 'Bot "'+bot_name+'" does not exist!');
-    }
-  }
 }
 
 function log(status, message) {
@@ -167,13 +170,6 @@ function formatTime(ts) {
     hours = '12';
 
   return hours + ":" + minutes + ":" + seconds;
-}
-
-function respond(cr, botName, data) {
-	log(messageStatus.message,'Response from "'+botName+'" received.');
-  var n = document.createElement("DIV");
-  n.innerHTML = detectURL("[" + data.timestamp + "] [" + botName + "]: " + cr);
-  document.getElementById("output").appendChild(n);
 }
 
 function input() {

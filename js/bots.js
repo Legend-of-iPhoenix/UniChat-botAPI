@@ -1,22 +1,19 @@
-/*
- * PRE-GENERATED SAMPLE BOT CODE. THIS WILL NOT WORK!
- * 
- * Read the docs:
- * https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial:-The-basics.
- * https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial:-Simple-Bot-%231
- *
- */
+var testBot = new Bot("testBot", "!");
 
+//when UniChat is ready to load bots, register the bot(s). If you are doing multiple bots, you should put the registerBot commands in the same initializeBots block. Syntax: registerBot(bot_username, bot_header_char, callback). Note that callback is the name of the function *in quotes* to be called whenever a message starts with the command header.
 function initializeBots() {
-  registerBot(BOT_NAME, BOT_HEADER_CHAR, BOT_CALLBACK);
+  testBot.register();
 }
 
-function executeBOT_NAME(data) {
+//this is the function called whenever a message starts with the command header. We recommend function names of the format execute<bot_username> to prevent overlap.
+testBot.executeCommand =  function(data) {
   //This code initializes the variables:
   var poster = data.poster;
   var message = data.message;
   var timestamp = data.timestamp;
   var raw_timestamp = data.rawTimestamp;
-
-  //YOUR COMMANDS HERE
+  //if the first 4 characters of the message (starting from 0), minus the command header, are "ping", then highlight the user and say, "Pong!".
+  if (message.substring(0,4) == "ping") {
+  	respond(poster + ": Pong!",data);
+  }
 }
