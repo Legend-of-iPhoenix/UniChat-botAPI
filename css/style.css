@@ -1,0 +1,93 @@
+* {
+  font-family: 'Lato', sans-serif;
+  color: #aaa;
+}
+
+body {
+  background-color: #2d2d2d;
+}
+
+a {
+  color: #aaa;
+  -webkit-text-decoration-color: #ccc; /* Safari */    
+  text-decoration-color: #ccc;
+}
+
+a:hover {
+  color: #ccc;
+  -webkit-text-decoration-color: #ddd; /* Safari */    
+  text-decoration-color: #ddd;
+}
+
+a:visited {
+  color: #888;
+  -webkit-text-decoration-color: #ccc; /* Safari */    
+  text-decoration-color: #ccc;
+}
+
+a:visited:hover {
+  color: #ccc;
+  -webkit-text-decoration-color: #fff; /* Safari */    
+  text-decoration-color: #fff;
+}
+
+.highlight a {
+  color: #aaa;
+}
+
+.highlight a:hover {
+  color: #bbb;
+}
+
+.highlight a:visited {
+  color: #999;
+}
+
+.highlight a:hover {
+  color: #bbb;
+}
+
+.output {
+  width: 50%;
+  height: 75vh;
+  padding: 5px;
+  margin: 0px;
+  overflow-y: scroll;
+  border: none;
+  background-color: #222;
+  box-shadow:0 1px 5px #222 inset,0 1px 0 #666;
+  float: left;
+}
+
+.error {
+	color: #f00;
+	font-weight: bolder;
+}
+
+.message {
+	color: #fff;
+}
+
+.warning {
+	color: #cc0;
+	font-weight: bolder;
+}
+
+#out {
+	display: flex;
+	justify-content: space-between;
+}
+
+input {
+	color: black;
+	display: block;
+	margin: 12px;
+}
+
+input[type="text"] {
+	width: 90%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
