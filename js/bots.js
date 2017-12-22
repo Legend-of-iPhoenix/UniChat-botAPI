@@ -1,3 +1,5 @@
+//Demo/example code.
+
 var testBot = new Bot("testBot", "!");
 
 //when UniChat is ready to load bots, register the bot(s). If you are doing multiple bots, you should put the registerBot commands in the same initializeBots block. Syntax: registerBot(bot_username, bot_header_char, callback). Note that callback is the name of the function *in quotes* to be called whenever a message starts with the command header.
