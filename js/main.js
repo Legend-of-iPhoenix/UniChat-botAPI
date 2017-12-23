@@ -28,8 +28,9 @@ function Bot(bot_name, header_character) {
   }
   respond = function (message, data) {
     log(messageStatus.message,'Response from "'+bot_name+'" received.');
+    var timestamp = formatTime((new Date().getTime()));
     var n = document.createElement("DIV");
-    n.innerHTML = detectURL("[" + data.timestamp + "] [" + bot_name + "]: " + message);
+    n.innerHTML = detectURL("[" + timestamp + "] [" + bot_name + "]: " + message);
     document.getElementById("output").appendChild(n);
   }
   this.active = true;
