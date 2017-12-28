@@ -16,6 +16,6 @@ testBot.executeCommand =  function(data) {
   var raw_timestamp = data.rawTimestamp;
   //if the first 4 characters of the message (starting from 0), minus the command header, are "ping", then highlight the user and say, "Pong!".
   if (message.substring(0,4) == "ping") {
-  	respond(poster + ": Pong!");
+  	this.respond(poster + ": Pong!");
   }
 }
