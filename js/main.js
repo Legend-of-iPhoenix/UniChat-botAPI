@@ -26,7 +26,7 @@ function Bot(bot_name, header_character) {
   this.executeCommand = function (data) {
     return null;
   }
-  this.respond = function (message, data) {
+  this.respond = function (message) {
     log(messageStatus.message,'Response from "'+bot_name+'" received.');
     var timestamp = formatTime((new Date().getTime()));
     var n = document.createElement("DIV");
