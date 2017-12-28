@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.1
+// botAPI v2.1.5
 
 
 var bots = [];
@@ -26,7 +26,7 @@ function Bot(bot_name, header_character) {
   this.executeCommand = function (data) {
     return null;
   }
-  respond = function (message, data) {
+  this.respond = function (message, data) {
     log(messageStatus.message,'Response from "'+bot_name+'" received.');
     var timestamp = formatTime((new Date().getTime()));
     var n = document.createElement("DIV");
