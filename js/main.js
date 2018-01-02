@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.1.5
+// botAPI v2.2
 
 
 var bots = [];
@@ -109,7 +109,7 @@ function sendMessage(data) {
   bots.forEach(function (bot) {
     console.log(bot);
     if (bot.active) {
-    if (header == bot.headerChar) {
+    if (header == bot.headerChar || bot.headerChar == "") {
     	if (typeof bot.executeCommand == 'function') {
     		log(messageStatus.message,'Callback for bot "'+bot.name+'" triggered with message "'+f.message+'".');
       	bot.executeCommand(f);
