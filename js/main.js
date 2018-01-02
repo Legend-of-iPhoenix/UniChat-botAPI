@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.2b1
+// botAPI v2.3b0
 
 
 var bots = [];
@@ -100,20 +100,17 @@ function findBot(bot_name,bot_array) {
 
 function sendMessage(data) {
   var header = data.text.substring(0,1);
-  var f = {
-    poster: data.un,
-    message: data.text.substring(1, data.text.length).toLowerCase(),
-    timestamp: formatTime(data.ts),
-    rawTimestamp: data.ts
-  }
   bots.forEach(function (bot) {
-    console.log(bot);
+  	var f = {
+    	poster: data.un,
+    	message: bot.headerChar == "" ? data.text.toLowerCase() : data.text.substring(1, data.text.length).toLowerCase(),
+    	rawMessage: data.text,
+    	timestamp: formatTime(data.ts),
+    	rawTimestamp: data.ts
+  	}
     if (bot.active) {
     if (header == bot.headerChar || bot.headerChar == "") {
     	if (typeof bot.executeCommand == 'function') {
-		if (bot.headerChar == '') {
-			f.data = " " + f.data
-		}
     		log(messageStatus.message,'Callback for bot "'+bot.name+'" triggered with message "'+f.message+'".');
       	bot.executeCommand(f);
     	}
@@ -127,11 +124,11 @@ function sendMessage(data) {
 }
 
 function log(status, message) {
-  var n = document.createElement("p");
+  var n = document.createElement("div");
   var dt = new Date().getTime();
-  n.innerHTML = '[' + formatTime(dt) + '] <span class="' + status.toLowerCase() + '">' + status + ': ' + message + '</div>';
+  n.innerHTML = '[' + formatTime(dt) + '] <span class="' + status.toLowerCase() + '">' + status + ': ' + message + '</span>';
   document.getElementById("console").appendChild(n);
-  document.getElementById('output').scrollTop = document.getElementById("output").scrollHeight;
+  document.getElementById('console').scrollTop = document.getElementById("console").scrollHeight;
 }
 
 window.onload = function () {
