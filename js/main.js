@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.4b1
+// botAPI v2.4b2
 
 
 var bots = [];
@@ -26,6 +26,7 @@ function Bot(bot_name, header_character) {
   this.name = bot_name;
   this.headerChar = header_character;
   this._basicCommands = [];
+  this.isRegistered = false;
   this.executeCommand = function (data) {
     return null;
   }
@@ -33,7 +34,12 @@ function Bot(bot_name, header_character) {
     return null;
   }
   this.defineSimpleCommand = function(command, response) {
-    this._basicCommands.push({c: command, r: response});
+    if (isRegistered) {
+      this._basicCommands.push({c: command, r: response});
+    }
+    else {
+      log(messageStatus.error, "Your bot must be registered before you add Simple Commands!");
+    }
   }
   this.userJoined = function (data) {
     return null;
@@ -70,6 +76,7 @@ function Bot(bot_name, header_character) {
     }
   }
   this.register = function() {
+    this.isRegistered = true;
     if (findBot(bot_name, bots) == -1) {
       bots.push(this);
       activeBots.push(this);
