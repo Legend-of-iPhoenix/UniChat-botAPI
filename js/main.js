@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.4b0
+// botAPI v2.4b1
 
 
 var bots = [];
@@ -124,22 +124,25 @@ function sendMessage(data) {
     	rawTimestamp: data.ts
   	}
     if (bot.active) {
+      if (Math.random < 1/(20+bots.length)) {
+        bot.onRandomMessage(f);
+      }
       bot._basicCommands.forEach(function(basicCommand) {
         if (data.text == basicCommand.c) {
           bot.respond(basicCommand.r);
         }
       });
-    if (header == bot.headerChar || bot.headerChar == "") {
-    	if (typeof bot.executeCommand == 'function') {
-    		log(messageStatus.message,'Callback for bot "'+bot.name+'" triggered with message "'+f.message+'".');
-      	bot.executeCommand(f);
-    	}
-    	else
-    	{
-    		log(messageStatus.error,'Callback for bot "'+bot.name+'" is not a function!');
-    	}
+      if (header == bot.headerChar || bot.headerChar == "") {
+      	if (typeof bot.executeCommand == 'function') {
+      		log(messageStatus.message,'Callback for bot "'+bot.name+'" triggered with message "'+f.message+'".');
+        	bot.executeCommand(f);
+      	}
+      	else
+      	{
+      		log(messageStatus.error,'Callback for bot "'+bot.name+'" is not a function!');
+      	}
+      }
     }
-  }
   });
 }
 
