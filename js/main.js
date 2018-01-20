@@ -7,23 +7,38 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.3b0
+// botAPI v2.4b0
 
 
 var bots = [];
 var activeBots = [];
 var user;
+var otherUsers = [];
 
 var messageStatus = {
   get error() { return "ERROR"; },
 	get warning() { return "WARNING"; },
-	get message() { return "MESSAGE"; }
+	get message() { return "MESSAGE"; },
+  get split() {return ""}
 };
 
 function Bot(bot_name, header_character) {
   this.name = bot_name;
   this.headerChar = header_character;
+  this._basicCommands = [];
   this.executeCommand = function (data) {
+    return null;
+  }
+  this.onRandomMessage = function (data) {
+    return null;
+  }
+  this.defineSimpleCommand = function(command, response) {
+    this._basicCommands.push({c: command, r: response});
+  }
+  this.userJoined = function (data) {
+    return null;
+  }
+  this.userLeft = function (data) {
     return null;
   }
   this.respond = function (message) {
@@ -109,6 +124,11 @@ function sendMessage(data) {
     	rawTimestamp: data.ts
   	}
     if (bot.active) {
+      bot._basicCommands.forEach(function(basicCommand) {
+        if (data.text == basicCommand.c) {
+          bot.respond(basicCommand.r);
+        }
+      });
     if (header == bot.headerChar || bot.headerChar == "") {
     	if (typeof bot.executeCommand == 'function') {
     		log(messageStatus.message,'Callback for bot "'+bot.name+'" triggered with message "'+f.message+'".');
@@ -127,6 +147,9 @@ function log(status, message) {
   var n = document.createElement("div");
   var dt = new Date().getTime();
   n.innerHTML = '[' + formatTime(dt) + '] <span class="' + status.toLowerCase() + '">' + status + ': ' + message + '</span>';
+  if (status == "") {
+    n.innerHTML = '[' + formatTime(dt) + ']';
+  }
   document.getElementById("console").appendChild(n);
   document.getElementById('console').scrollTop = document.getElementById("console").scrollHeight;
 }
@@ -142,6 +165,7 @@ window.onload = function () {
   else {
   	log(messageStatus.error,'Function "initializeBots()" does not exist! No bots loaded.');
   }
+  log(messageStatus.split);
   document.getElementById("messageBox").addEventListener("keyup", function (event) {
   	event.preventDefault();
   	if (event.key === "Enter")
@@ -176,13 +200,38 @@ function formatTime(ts) {
 function input() {
   var message = document.getElementById("messageBox").value;
   if (message.length > 0 && message.length < 256) {
-  	var data = {text: message, un: user.username(), ts: (new Date().getTime())};
-  	var n = document.createElement("DIV");
-    n.innerHTML = detectURL("[" + formatTime((new Date().getTime())) + "] " + user.username() + ": " + message);
-    document.getElementById("output").appendChild(n);
-    document.getElementById('output').scrollTop = document.getElementById("output").scrollHeight;
-    document.getElementById("messageBox").value = "";
-    sendMessage(data);
+    if (message == "/newuser") {
+      var newUser = new User()
+      otherUsers.push(newUser);
+      log(messageStatus.message, "Created a new user, "+newUser.username());
+      bots.forEach(function(bot) {
+        bot.userJoined({un: newUser.username(), ts: (new Date().getTime())});
+      });
+      document.getElementById("messageBox").value = "";
+    }
+    else {
+      if (message == "/kickuser") {
+        if (otherUsers.length > 0) {
+          var kickedUser = otherUsers[Math.floor(Math.random()*otherUsers.length)];
+          bots.forEach(function(bot) {
+            bot.userLeft({un: kickedUser.username(), ts: (new Date().getTime())});
+          });
+          log(messageStatus.message, "Kicked "+kickedUser.username());
+        }
+        else {
+          log(messageStatus.warning, "There are no other users. Use /newuser to create a new one. ");
+        }
+      }
+      else {
+        var data = {text: message, un: user.username(), ts: (new Date().getTime())};
+        var n = document.createElement("DIV");
+        n.innerHTML = detectURL("[" + formatTime((new Date().getTime())) + "] " + user.username() + ": " + message);
+        document.getElementById("output").appendChild(n);
+        document.getElementById('output').scrollTop = document.getElementById("output").scrollHeight;
+        document.getElementById("messageBox").value = "";
+        sendMessage(data);
+      }
+    }
   }
 }
 
