@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// botAPI v2.4b2
+// botAPI v2.5b0
 
 
 var bots = [];
@@ -22,10 +22,11 @@ var messageStatus = {
   get split() {return ""}
 };
 
-function Bot(bot_name, header_character) {
+function Bot(bot_name, header_character, version) {
   this.name = bot_name;
   this.headerChar = header_character;
   this._basicCommands = [];
+  this.version = version || "v1";
   this.isRegistered = false;
   this.executeCommand = function (data) {
     return null;
