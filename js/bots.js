@@ -16,7 +16,7 @@ lax.executeCommand =  function(data) {
   var raw_timestamp = data.rawTimestamp;
  
   if (message.substring(0,7) == "laxinfo") {
-  	this.respond("Hello, Im Always Watching! ~ LAXBOT version" + bot.version);
+  	this.respond("Hello, Im Always Watching! ~ LAXBOT version" + lax.version);
   }
 }
 
