@@ -1,6 +1,6 @@
 //Demo/example code.
 
-var lax = new Bot("LAXBOT", "~");
+var lax = new Bot("LAXBOT", "~","1.1");
 
 //when UniChat is ready to load bots, register the bot(s). If you are doing multiple bots, you should put the registerBot commands in the same initializeBots block. Syntax: registerBot(bot_username, bot_header_char, callback). Note that callback is the name of the function *in quotes* to be called whenever a message starts with the command header.
 function initializeBots() {
@@ -14,8 +14,6 @@ lax.executeCommand =  function(data) {
   var message = data.message;
   var timestamp = data.timestamp;
   var raw_timestamp = data.rawTimestamp;
-  lax.version = "1.1"
-  
  
   if (message.substring(0,7) == "laxinfo") {
   	this.respond("Hello, Im Always Watching! ~ LAXBOT version" + bot.version);
