@@ -1,14 +1,14 @@
 //Demo/example code.
 
-var testBot = new Bot("testBot", "!");
+var LAXBOT = new Bot("LAXBOT", "");
 
 //when UniChat is ready to load bots, register the bot(s). If you are doing multiple bots, you should put the registerBot commands in the same initializeBots block. Syntax: registerBot(bot_username, bot_header_char, callback). Note that callback is the name of the function *in quotes* to be called whenever a message starts with the command header.
 function initializeBots() {
-  testBot.register();
+  LAXBOT.register();
 }
 
 //this is the function called whenever a message starts with the command header. We recommend function names of the format execute<bot_username> to prevent overlap.
-testBot.executeCommand =  function(data) {
+LAXBOT.executeCommand =  function(data) {
   //This code initializes the variables:
   var poster = data.poster;
   var message = data.message;
