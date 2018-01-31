@@ -16,9 +16,9 @@ lax.executeCommand =  function(data) {
   var raw_timestamp = data.rawTimestamp;
  
   if (message.substring(0,7) == "laxinfo") {
-  	this.respond("Hello, Im Always Watching! ~ LAXBOT version:" + lax.version);
+  	this.respond("Hello, Im Always Watching! ~ LAXBOT version: " + lax.version);
   }
-  if (message.substring(0,9) == "pm LAXBOT" && poster = "LAX18") {
+  if (message.substring(0,9) == "pm LAXBOT DEACTIVATE" && poster = "LAX18") {
     lax.deactivate()
     this.respond("/pm LAX18 Bot Deactivated")
   }
