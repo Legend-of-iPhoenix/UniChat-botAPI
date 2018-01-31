@@ -18,7 +18,7 @@ lax.executeCommand = function(data) {
   if (message.substring(0,7) == "laxinfo") {
   	lax.respond("Hello, Im Always Watching! ~ LAXBOT version: " + lax.version);
   }
-  if (message.substring(0,9) == "pm LAXBOT DEACTIVATE" && poster = "LAX18") {
+  if (message.startsWith("pm LAXBOT DEACTIVATE") && poster = "LAX18") {
     lax.deactivate();
     lax.respond("/pm LAX18 Bot Deactivated");
   }
