@@ -11,4 +11,4 @@ We highly reccommend reading the documentation:
 
 #2: [The Basics.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial-(part-2):-The-basics. "Part 2")
 
-#3: [Creating your first bot.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial-(part-3):-Simple-Bot-%231 "Part 3")
+#3: [Creating your first bot.](https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Bot-API-Tutorial-(part-3):-Creating-your-first-bot "Part 3")
